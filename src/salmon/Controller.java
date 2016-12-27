@@ -25,11 +25,15 @@ public class Controller implements Initializable
     private SplitPane mainSplitPane;
 
     @FXML
-    private TreeView<File> fileBrowser;
+    private TreeView<String> fileBrowser;
+    private final TreeItem<String> fileBrowserRoot = new TreeItem<>("");
 
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        fileBrowser.setRoot(fileBrowserRoot);
+        fileBrowser.setShowRoot(false);
+
         CodeArea codeArea = new CodeArea();
         codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea)); //Line numbering
 
@@ -62,9 +66,9 @@ public class Controller implements Initializable
      * @param dir    Root directory to search from
      * @param parent Recursive parameter
      */
-    private void findFiles(File dir, TreeItem<File> parent)
+    private void findFiles(File dir, TreeItem<String> parent)
     {
-        TreeItem<File> root = new TreeItem<>(dir);
+        TreeItem<String> root = new TreeItem<>(removeFilePathPrefix(dir));
         File[] files = dir.listFiles();
 
         if (files != null)
@@ -77,18 +81,23 @@ public class Controller implements Initializable
                 }
                 else
                 {
-                    root.getChildren().add(new TreeItem<>(file));
+                    root.getChildren().add(new TreeItem<>(removeFilePathPrefix(file)));
                 }
             }
         }
 
         if (parent == null)
         {
-            fileBrowser.setRoot(root);
+            fileBrowserRoot.getChildren().add(root);
         }
         else
         {
             parent.getChildren().add(root);
         }
+    }
+
+    private String removeFilePathPrefix(File file)
+    {
+        return file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf(File.separator) + 1);
     }
 }
