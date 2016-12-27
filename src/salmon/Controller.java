@@ -3,10 +3,13 @@ package salmon;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.Stage;
+import org.fxmisc.richtext.CodeArea;
 
 import java.io.File;
 import java.net.URL;
@@ -18,11 +21,23 @@ public class Controller implements Initializable
     private VBox mainWindow;
 
     @FXML
+    private SplitPane mainSplitPane;
+
+    @FXML
     private TreeView<File> fileBrowser;
 
     @Override
     public void initialize(URL url, ResourceBundle rb)
-    {}
+    {
+        CodeArea codeArea = new CodeArea();
+
+        Platform.runLater(() ->
+        {
+            ((Stage) mainWindow.getScene().getWindow()).setMaximized(true);
+            mainSplitPane.getItems().add(codeArea);
+            mainSplitPane.setDividerPositions(0.15);
+        });
+    }
 
     public void addFolderButtonPressed()
     {
