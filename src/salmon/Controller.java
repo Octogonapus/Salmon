@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import org.fxmisc.richtext.CodeArea;
+import org.fxmisc.richtext.LineNumberFactory;
 
 import java.io.File;
 import java.net.URL;
@@ -30,6 +31,7 @@ public class Controller implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         CodeArea codeArea = new CodeArea();
+        codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea)); //Line numbering
 
         Platform.runLater(() ->
         {
