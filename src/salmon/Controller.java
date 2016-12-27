@@ -1,6 +1,6 @@
 package salmon;
 
-import javafx.event.ActionEvent;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
@@ -24,7 +24,7 @@ public class Controller implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {}
 
-    public void addFolderButtonPressed(ActionEvent actionEvent)
+    public void addFolderButtonPressed()
     {
         DirectoryChooser fileChooser = new DirectoryChooser();
         fileChooser.setTitle("Select Folder to Add");
@@ -33,6 +33,11 @@ public class Controller implements Initializable
         {
             findFiles(selection, null);
         }
+    }
+
+    public void exitButtonPressed()
+    {
+        Platform.exit();
     }
 
     /**
