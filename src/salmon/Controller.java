@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 
 import java.io.File;
@@ -15,15 +15,14 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable
 {
     @FXML
-    private BorderPane mainWindow;
+    private VBox mainWindow;
 
     @FXML
     private TreeView<File> fileBrowser;
 
     @Override
     public void initialize(URL url, ResourceBundle rb)
-    {
-    }
+    {}
 
     public void addFolderButtonPressed(ActionEvent actionEvent)
     {
@@ -58,9 +57,9 @@ public class Controller implements Initializable
                 {
                     root.getChildren().add(new TreeItem<>(file));
                 }
-
             }
         }
+
         if (parent == null)
         {
             fileBrowser.setRoot(root);
